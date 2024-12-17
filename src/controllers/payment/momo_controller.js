@@ -1,11 +1,9 @@
-import { MomoPaymentService } from "../../services/payment_services.js";
+import MomoPaymentService from "../../services/payment/momo.js";
 class MomoController {
     //request userid, object booking, amount
     static async createPayment(req, res) {
-        let { amount } = req.body;
-        console.log(amount);
         try {
-            const result = await MomoPaymentService.createPayment(amount);
+            const result = await MomoPaymentService.createPayment(req.body);
             console.log(result);
             return res.status(200).json({
                 statusCode: 200,

@@ -1,4 +1,4 @@
-import { firestoreDb } from '../configs/firebase_config.js';
+import { firestoreDb } from '../../configs/firebase_config.js';
 
 let checkExistPhoneNumber = async (phoneNumber) => {
     try {

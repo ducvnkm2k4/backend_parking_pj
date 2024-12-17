@@ -1,7 +1,8 @@
 import axios from "axios";
-import MomoConfig from "../configs/momo_config.js";
+import MomoConfig from "../../configs/momo_config.js";
+
 class MomoPaymentService {
-    static async createPayment(amount) {
+    static async createPayment(reqBody) {
 
         const options = {
 
@@ -11,7 +12,7 @@ class MomoPaymentService {
                 'Content-Type': 'application/json',
 
             },
-            data: MomoConfig.createPayment(amount)
+            data: MomoConfig.createPayment(reqBody)
         }
         //Send the request and get the response
         try {
@@ -57,4 +58,4 @@ class MomoPaymentService {
     }
 }
 
-export { MomoPaymentService };
+export default MomoPaymentService;

@@ -1,11 +1,10 @@
-import { checkExistPhoneNumber } from '../services/autherization_service.js'
-import { MomoPaymentService } from '../services/payment_services.js';
+import { checkExistPhoneNumber } from "../services/database/autherization_service.js";
 class ApiController {
     static async getExistPhoneNumber(req, res) {
         try {
             const phoneNumber = req.query.phoneNumber;
             if (phoneNumber == "") {
-                return res.status(501).json({
+                return res.status(400).json({
                     message: "check exist phone number",
                     error: "missing phone number"
                 })
