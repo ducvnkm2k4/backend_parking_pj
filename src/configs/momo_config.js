@@ -64,12 +64,12 @@ class MomoConfig {
         let secretKey = process.env.MOMO_SECRET_KEY;
         let partnerCode = process.env.MOMO_PARTNER_CODE;
         let requestId = orderId;
-        let desciption = 'hoàn trả tiền';
+        let description = '';
         let lang = 'vi';
 
-        const rawSignature = 'accessKey=${acessKey}&amount=$amount&description=$description&orderId=$orderId&partnerCode=$partnerCode&requestId=$requestId&transId=$transId';
+        let rawSignature = `accessKey=${accessKey}&amount=${amount}&description=${description}&orderId=${orderId}&partnerCode=${partnerCode}&requestId=${requestId}&transId=${transId}`;
         console.log('raw: ', rawSignature);
-        const signature = CryptoJS.HmacSHA256(rawSignature, secretKey).toString(CryptoJS.enc.Hex);
+        let signature = CryptoJS.HmacSHA256(rawSignature, secretKey).toString(CryptoJS.enc.Hex);
         const requestBody = {
             partnerCode: partnerCode,
             orderId: orderId,
@@ -77,7 +77,7 @@ class MomoConfig {
             amount: amount,
             requestId: transId,
             lang: lang,
-            desciption: desciption,
+            description: description,
             signature: signature
         }
         return requestBody
