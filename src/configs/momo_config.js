@@ -1,17 +1,14 @@
 import CryptoJS from "crypto-js";
 
 class MomoConfig {
-    static createPayment(reqBody) {
-        const booking = JSON.parse(reqBody.booking);
+    static createPayment(amount, orderId) {
         let accessKey = process.env.MOMO_ACCESS_KEY;
         let secretKey = process.env.MOMO_SECRET_KEY;
         let partnerCode = process.env.MOMO_PARTNER_CODE;
         let orderInfo = 'pay with MoMo';
-        let redirectUrl = `${process.env.NGROK}/api/v1/momo-callback`;
-        let ipnUrl = `${process.env.NGROK}/api/v1/momo-callback`;
+        let redirectUrl = `${process.env.NGROK}/home`;
+        let ipnUrl = `${process.env.NGROK}/api/payment/v1/momo-callback`;
         let requestType = "payWithMethod";
-        let amount = booking.totalCost;
-        let orderId = partnerCode + new Date().getTime();
         let requestId = orderId;
         let extraData = '';
         let orderGroupId = '';

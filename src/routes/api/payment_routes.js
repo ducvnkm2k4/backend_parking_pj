@@ -7,7 +7,7 @@ const paymentRouter = express.Router();
 let initPayMentRouter = (app) => {
     //momo
     paymentRouter.post('/v1/create-payment-momo', MomoController.createPayment);
-    paymentRouter.post('/v1/momo-callback', MomoController.callbackTranscation);
+    paymentRouter.post('/v1/momo-callback', MomoController.callbackTransaction);
     paymentRouter.post('/v1/momo-transaction-status', MomoController.transactionStatus);
     paymentRouter.post('/v1/momo-refund', MomoController.refund);
     //zalo pay

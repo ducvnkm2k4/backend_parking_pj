@@ -1,9 +1,11 @@
 import axios from "axios";
 import MomoConfig from "../../configs/momo_config.js";
+import BookingDataBaseServices from "../database/booking_db.js";
 
 class MomoPaymentService {
     static async createPayment(reqBody) {
-
+        let orderId = process.env.MOMO_PARTNER_CODE + new Date().getTime();
+        const booking = JSON.parse(reqBody.booking);
         const options = {
 
             url: 'https://test-payment.momo.vn/v2/gateway/api/create',
@@ -12,12 +14,14 @@ class MomoPaymentService {
                 'Content-Type': 'application/json',
 
             },
-            data: MomoConfig.createPayment(reqBody)
+            data: MomoConfig.createPayment(booking.totalCost, orderId)
         }
-        //Send the request and get the response
+
         try {
             const response = await axios(options);
-            console.log(response.data);
+            console.log('create payment momo:\n', response.data);
+
+            await BookingDataBaseServices.createRecord(orderId, reqBody.uId, booking, 'momo');
             return response.data;
         } catch (error) {
             throw new Error(error.response ? error.response.data : error.message);
