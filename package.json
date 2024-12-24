@@ -3,9 +3,13 @@
   "version": "1.0.0",
   "description": "nckh 2024-2025",
   "main": "server.js",
+  "engines": {
+    "node": "22.8.0"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon --no-deprecation --exec babel-node src/server.js"
+    "start": "node --no-deprecation --exec babel-node src/server.js",
+    "dev": "nodemon --no-deprecation --exec babel-node src/server.js"
   },
   "type": "module",
   "author": "minhduc",
@@ -14,6 +18,7 @@
     "axios": "^1.7.9",
     "crypto-js": "^4.2.0",
     "dotenv": "^16.4.7",
+    "encode": "^1.0.1",
     "express": "^4.21.2",
     "firebase-admin": "^13.0.1",
     "moment": "^2.30.1",

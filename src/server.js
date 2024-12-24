@@ -9,8 +9,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 initRouter(app);
+app.use('/', (req, res) => res.send('this is home page'));
 app.use('/home', (req, res) => res.send('this is home page'));
-
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
 });
