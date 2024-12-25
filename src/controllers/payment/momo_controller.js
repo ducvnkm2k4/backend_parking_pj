@@ -18,6 +18,7 @@ class MomoController {
 
     static async callbackTransaction(req, res) {
         const { orderId, resultCode } = req.body;
+        console.log('momo callback:\n', req.body);
         await BookingDataBaseServices.updateTicketStatus(orderId, resultCode == 0 ? "paid" : "fail");
         return res.status(200).json({ message: "momo callback transaction", data: req.body });
     }

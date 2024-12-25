@@ -22,9 +22,7 @@ class BookingDataBaseServices {
                 "ticketStatus": 'create',
                 //create -> paid[fail] -> in -> finish
             }
-
             await this._db.add(data);
-
             console.log('Data saved successfully:', data);
         } catch (error) {
             console.error('Error while creating record:', error);
@@ -34,7 +32,7 @@ class BookingDataBaseServices {
 
     static async updateTicketStatus(id, status) {
         try {
-            await this._db.doc(id).update({ ticketStatus: status });
+            await this._db.where('paymentId', '==', id).update({ ticketStatus: status });
             console.log(`Paid status updated successfully for ID: ${id}`);
         } catch (error) {
             console.error('Error while updating paid status:', error);
