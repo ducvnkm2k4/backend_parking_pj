@@ -3,15 +3,14 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 class MomoConfig {
-    static createPayment(amount, orderId, uId) {
+    static createPayment(amount, orderId, requestId) {
         let accessKey = process.env.MOMO_ACCESS_KEY;
         let secretKey = process.env.MOMO_SECRET_KEY;
         let partnerCode = process.env.MOMO_PARTNER_CODE;
         let orderInfo = 'pay with MoMo';
-        let redirectUrl = `${process.env.BACKEND_HOST}`;
+        let redirectUrl = ``;
         let ipnUrl = `${process.env.BACKEND_HOST}/api/payment/v1/momo-callback`;
         let requestType = "payWithMethod";
-        let requestId = orderId + uId;
         let extraData = '';
         let orderGroupId = '';
         let autoCapture = true;
