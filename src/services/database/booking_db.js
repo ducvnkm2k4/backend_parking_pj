@@ -4,13 +4,16 @@ class BookingDataBaseServices {
     static _db = firestoreDb.collection('bookParkings');
 
     static async createRecord(id, uId, booking, paymentMethod) {
+        let createAt = new Date();
+        let expirationTime = new Date(createAt);
+        expirationTime.setHours(expirationTime.getHours() + booking.timeBooking);
         try {
             let data = {
                 "uid": uId,
                 "paymentId": id,
                 "numberPlate": booking.numberPlate,
-                "createAt": new Date(),
-                "expirationTime": createAt.setHours(createAt.getHours() + booking.timeBooking),
+                "createAt": createAt,
+                "expirationTime": expirationTime,
                 "totalCost": booking.totalCost,
                 "paymentMethod": paymentMethod,
                 "parkingName": booking.parkingName,
