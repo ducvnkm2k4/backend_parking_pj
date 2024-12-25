@@ -10,6 +10,7 @@ class BookingDataBaseServices {
                 "paymentId": id,
                 "numberPlate": booking.numberPlate,
                 "createAt": new Date(),
+                "expirationTime": createAt.setHours(createAt.getHours() + booking.timeBooking),
                 "totalCost": booking.totalCost,
                 "paymentMethod": paymentMethod,
                 "parkingName": booking.parkingName,
@@ -19,7 +20,7 @@ class BookingDataBaseServices {
                 //create -> paid[fail] -> in -> finish
             }
 
-            await this._db.set(data);
+            await this._db.add(data);
 
             console.log('Data saved successfully:', data);
         } catch (error) {
