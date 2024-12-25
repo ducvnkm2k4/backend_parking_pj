@@ -3,21 +3,19 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 class MomoConfig {
-    static createPayment(amount, orderId) {
+    static createPayment(amount, orderId, uId) {
         let accessKey = process.env.MOMO_ACCESS_KEY;
         let secretKey = process.env.MOMO_SECRET_KEY;
         let partnerCode = process.env.MOMO_PARTNER_CODE;
         let orderInfo = 'pay with MoMo';
         let redirectUrl = `${process.env.BACKEND_HOST}`;
         let ipnUrl = `${process.env.BACKEND_HOST}/api/payment/v1/momo-callback`;
-        console.log('inpUrl:', ipnUrl);
         let requestType = "payWithMethod";
-        let requestId = orderId;
+        let requestId = orderId + uId;
         let extraData = '';
         let orderGroupId = '';
         let autoCapture = true;
         let lang = 'vi';
-
         let rawSignature = "accessKey=" + accessKey + "&amount=" + amount + "&extraData=" + extraData + "&ipnUrl=" + ipnUrl + "&orderId=" + orderId + "&orderInfo=" + orderInfo + "&partnerCode=" + partnerCode + "&redirectUrl=" + redirectUrl + "&requestId=" + requestId + "&requestType=" + requestType;
         const signature = CryptoJS.HmacSHA256(rawSignature, secretKey).toString(CryptoJS.enc.Hex);
 

@@ -14,7 +14,7 @@ class MomoPaymentService {
                 'Content-Type': 'application/json',
 
             },
-            data: MomoConfig.createPayment(booking.totalCost, orderId)
+            data: MomoConfig.createPayment(booking.totalCost, orderId, reqBody.uId),
         }
 
         try {

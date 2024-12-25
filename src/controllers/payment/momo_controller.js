@@ -2,7 +2,6 @@ import { json } from "express";
 import MomoPaymentService from "../../services/payment/momo.js";
 import BookingDataBaseServices from "../../services/database/booking_db.js";
 class MomoController {
-    //request userid, object booking, amount
     static async createPayment(req, res) {
         try {
             const result = await MomoPaymentService.createPayment(req.body);
@@ -17,10 +16,13 @@ class MomoController {
     }
 
     static async callbackTransaction(req, res) {
-        const { orderId, resultCode } = req.body;
-        console.log('momo callback:\n', req.body);
-        await BookingDataBaseServices.updateTicketStatus(orderId, resultCode == 0 ? "paid" : "fail");
-        return res.status(200).json({ message: "momo callback transaction", data: req.body });
+        try {
+            const { orderId, resultCode, requestId } = req.body;
+            console.log('momo callback:\n', req.body);
+            await BookingDataBaseServices.updateTicketStatus(orderId, resultCode == 0 ? "paid" : "fail", requestId);
+        } catch (err) {
+            console.log('error momo callback:', err);
+        }
     }
 
     static async transactionStatus(req, res) {

@@ -9,7 +9,7 @@ class BookingDataBaseServices {
         expirationTime.setHours(expirationTime.getHours() + booking.timeBooking);
         try {
             let data = {
-                "uid": uId,
+                "uId": uId,
                 "paymentId": id,
                 "numberPlate": booking.numberPlate,
                 "createAt": createAt,
@@ -22,7 +22,7 @@ class BookingDataBaseServices {
                 "ticketStatus": 'create',
                 //create -> paid[fail] -> in -> finish
             }
-            await this._db.add(data);
+            await this._db.add(data)
             console.log('Data saved successfully:', data);
         } catch (error) {
             console.error('Error while creating record:', error);
@@ -30,12 +30,21 @@ class BookingDataBaseServices {
         }
     }
 
-    static async updateTicketStatus(id, status) {
+    static async updateTicketStatus(id, status, requestId) {
         try {
-            await this._db.where('paymentId', '==', id).update({ ticketStatus: status });
-            console.log(`Paid status updated successfully for ID: ${id}`);
+            const uId = requestId.replace(id, '');
+            const snapshot = await this._db.where('paymentId', '==', id).where('uId', '==', uId).get();
+
+            if (snapshot.empty) {
+                console.log(`Không tìm thấy tài liệu với paymentId = ${id}`);
+                return;
+            }
+
+            snapshot.forEach(async (doc) => {
+                await doc.ref.update({ ticketStatus: status });
+            });
         } catch (error) {
-            console.error('Error while updating paid status:', error);
+            console.error('Lỗi khi cập nhật trạng thái thanh toán:', error);
             throw new Error(error);
         }
     }
