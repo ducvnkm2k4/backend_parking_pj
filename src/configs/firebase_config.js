@@ -1,8 +1,6 @@
 import admin from "firebase-admin";
 import dotenv from 'dotenv';
 dotenv.config();
-const private_key = process.env.FIREBASE_PRIVATE_KEY;
-console.log('key:', private_key)
 const serviceAccount = {
     "type": process.env.FIREBASE_TYPE,
     "project_id": process.env.FIREBASE_PROJECT_ID,

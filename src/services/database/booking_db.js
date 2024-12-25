@@ -1,12 +1,13 @@
 import { firestoreDb } from '../../configs/firebase_config.js';
 
 class BookingDataBaseServices {
-    static _db = firestoreDb.collection('bookings');
+    static _db = firestoreDb.collection('bookParkings');
 
     static async createRecord(id, uId, booking, paymentMethod) {
         try {
             let data = {
                 "uid": uId,
+                "paymentId": id,
                 "numberPlate": booking.numberPlate,
                 "createAt": new Date(),
                 "totalCost": booking.totalCost,
@@ -18,7 +19,7 @@ class BookingDataBaseServices {
                 //create -> paid[fail] -> in -> finish
             }
 
-            await this._db.doc(id).set(data);
+            await this._db.set(data);
 
             console.log('Data saved successfully:', data);
         } catch (error) {
@@ -29,7 +30,6 @@ class BookingDataBaseServices {
 
     static async updateTicketStatus(id, status) {
         try {
-            // Correct syntax for updating a Firestore document
             await this._db.doc(id).update({ ticketStatus: status });
             console.log(`Paid status updated successfully for ID: ${id}`);
         } catch (error) {

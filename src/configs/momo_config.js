@@ -8,8 +8,8 @@ class MomoConfig {
         let secretKey = process.env.MOMO_SECRET_KEY;
         let partnerCode = process.env.MOMO_PARTNER_CODE;
         let orderInfo = 'pay with MoMo';
-        let redirectUrl = `${process.env.NGROK}/home`;
-        let ipnUrl = `${process.env.NGROK}/api/payment/v1/momo-callback`;
+        let redirectUrl = '';
+        let ipnUrl = `${process.env.BACKEND_HOST}/api/payment/v1/momo-callback`;
         let requestType = "payWithMethod";
         let requestId = orderId;
         let extraData = '';
