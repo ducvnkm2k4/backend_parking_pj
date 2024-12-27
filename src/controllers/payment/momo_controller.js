@@ -18,10 +18,21 @@ class MomoController {
     static async callbackTransaction(req, res) {
         try {
             const { resultCode, requestId } = req.body;
-            console.log('momo callback:\n', req.body);
-            await BookingDataBaseServices.updateTicketStatus(resultCode == 0 ? "paid" : "fail", requestId);
+            if (resultCode == 0) {
+                await BookingDataBaseServices.updateTicketStatus("paid", requestId);
+            } else {
+                //update vào users
+            }
+
+            return res.status(200).json({
+                message: "Momo call back and update status ticket"
+            })
         } catch (err) {
             console.log('error momo callback:', err);
+            return res.status(500).json({
+                message: "error update ticket status",
+                error: err
+            })
         }
     }
 

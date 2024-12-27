@@ -9,7 +9,7 @@ class MomoConfig {
         let partnerCode = process.env.MOMO_PARTNER_CODE;
         let orderInfo = 'pay with MoMo';
         let redirectUrl = ``;
-        let ipnUrl = `${process.env.BACKEND_HOST}/api/payment/v1/momo-callback`;
+        let ipnUrl = `${process.env.HOST}/api/payment/v1/momo-callback`;
         let requestType = "payWithMethod";
         let extraData = '';
         let orderGroupId = '';

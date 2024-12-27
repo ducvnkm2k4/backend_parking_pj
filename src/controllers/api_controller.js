@@ -1,4 +1,5 @@
 import { checkExistPhoneNumber } from "../services/database/autherization_service.js";
+import TokenDevice from "../assets/token_devices.js";
 class ApiController {
     static async getExistPhoneNumber(req, res) {
         try {
@@ -23,6 +24,12 @@ class ApiController {
         }
     }
 
+    static async updateTokenDevice(req, res) {
+        let { uId, token } = req.body;
+        TokenDevice.addTokenDevice(uId, token);
+        return res.status(200).json({ message: "update token success" });
+
+    }
 
 
 }

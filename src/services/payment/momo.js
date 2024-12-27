@@ -2,6 +2,7 @@ import axios from "axios";
 import MomoConfig from "../../configs/momo_config.js";
 import BookingDataBaseServices from "../database/booking_db.js";
 import { v1 as uuidv1 } from "uuid"
+import SendNotification from "../notification_to_client/send_message.js";
 class MomoPaymentService {
     static async createPayment(reqBody) {
         let orderId = process.env.MOMO_PARTNER_CODE + new Date().getTime();
@@ -23,6 +24,7 @@ class MomoPaymentService {
             console.log('create payment momo:\n', response.data);
 
             await BookingDataBaseServices.createRecord(requestId, orderId, reqBody.uId, booking, 'momo');
+
             return response.data;
         } catch (error) {
             throw new Error(error.response ? error.response.data : error.message);

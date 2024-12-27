@@ -23,5 +23,5 @@ let firestoreDb = admin.firestore();
 let auth = admin.auth();
 
 export {
-    firestoreDb, auth
+    firestoreDb, auth, admin
 }
